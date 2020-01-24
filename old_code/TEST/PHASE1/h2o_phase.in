@@ -1,0 +1,43 @@
+New test water - 20-30 MPa      !Title
+
+1                               !segment types
+water           3.0063d0  266.68d0 17.020d0  6.00d0 1.0d0       1       18.0    0.0  0.0   2  !name         sig eps lamr  lama shapef nseg mass  charge  Born sigma  assoc site types
+2
+2
+
+0                               !unlike actual eps                      !segment types,    eps value
+
+0
+
+1 !Define associations
+1  1   1   2 1985.4d0    101.69d0  !seg1 type1 seg2 type2       ehb             khb
+
+1                               !molecules
+water   1.0      18.0    0.3777d-3    1403.0   1             !mol_name               mole fraction   mass pure V   nsegment_types
+1  1
+
+pha1  23
+280
+285
+290
+295
+300
+305
+310
+315
+320
+340
+360
+380
+400
+420
+450
+470
+500
+520
+550
+570
+600
+620
+640
+
