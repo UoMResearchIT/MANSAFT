@@ -6583,7 +6583,6 @@ end module Vol_mod
 !            Parameters and User-defined Routines
 
 !     .. Use Statements ..
-      Use nag_library, Only: nag_wp
 	  use Types_mod           ! Definitions of types and double precision
 	  use Global_mod          ! Important global parameters
 	  use Press_mod
@@ -6596,7 +6595,7 @@ end module Vol_mod
       Public                           :: fcn
 !     .. Parameters ..
       Integer, Parameter, Public       :: n = 3, nout = 6
-	  Real (Kind=nag_wp), Public			   :: P_L, P_V, Mu_L_1, Mu_L_2, Mu_V_1, Mu_V_2, x_1, x_init_1, x_init_2, x_init_3
+	  Real (Kind=DP), Public			   :: P_L, P_V, Mu_L_1, Mu_L_2, Mu_V_1, Mu_V_2, x_1, x_init_1, x_init_2, x_init_3
     Contains
       Subroutine fcn(n,x,fvec,iuser,ruser,iflag)
 
@@ -6604,21 +6603,21 @@ end module Vol_mod
         Integer, Intent (Inout)        :: iflag
         Integer, Intent (In)           :: n
 !       .. Array Arguments ..
-        Real (Kind=nag_wp), Intent (Out) :: fvec(n)
-        Real (Kind=nag_wp), Intent (Inout) :: ruser(*)
-        Real (Kind=nag_wp), Intent (In) :: x(n)
+        Real (Kind=DP), Intent (Out) :: fvec(n)
+        Real (Kind=DP), Intent (Inout) :: ruser(*)
+        Real (Kind=DP), Intent (In) :: x(n)
         Integer, Intent (Inout)        :: iuser(*)
 !       .. Executable Statements ..
 		v   = x(1)				! Liquid volume is x1
 		Comp_array(1)%xi = x_1 !x1
-		Comp_array(2)%xi = 1.0_nag_wp - x_1 !x2
+		Comp_array(2)%xi = 1.0_DP - x_1 !x2
 		p = Press()
 		P_L = p
 		Mu_L_1 = Mu(1)
 		Mu_L_2 = Mu(2)
 		v   = x(2)				! Vapor volume is x2
 		Comp_array(1)%xi = x(3) ! y1
-		Comp_array(2)%xi =1.0_nag_wp - x(3) !y2
+		Comp_array(2)%xi =1.0_DP - x(3) !y2
 		p = Press()
 		P_V = p
 		Mu_V_1 = Mu(1)
@@ -6642,20 +6641,21 @@ subroutine c05qbfe(output)
 
 !     .. Use Statements ..
       Use c05qbfe_mod, Only: fcn, n, nout, x_init_1, x_init_2, x_init_3
+      Use types_mod, Only: DP
 
-      Use nag_library, Only: c05qbf, dnrm2, nag_wp, x02ajf
+      Use nag_library, Only: c05qbf, dnrm2, x02ajf
 !     .. Implicit None Statement ..
       Implicit None
 !     .. Local Scalars ..
-      Real (Kind=nag_wp)               :: fnorm, xtol
+      Real (Kind=DP)               :: fnorm, xtol
       Integer                          :: i, ifail
 !     .. Local Arrays ..
-      Real (Kind=nag_wp), Allocatable  :: fvec(:), x(:)
-      Real (Kind=nag_wp)               :: ruser(1)
+      Real (Kind=DP), Allocatable  :: fvec(:), x(:)
+      Real (Kind=DP)               :: ruser(1)
       Integer                          :: iuser(1)
       !     .. Intrinsic Procedures ..
       Intrinsic                        :: sqrt
-	  Real(Kind=nag_wp)                :: output(3)
+	  Real(Kind=DP)                :: output(3)
 !     .. Executable Statements ..
 
       Allocate (fvec(n),x(n))
