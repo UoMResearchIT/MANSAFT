@@ -6643,7 +6643,8 @@ subroutine c05qbfe(output)
       Use c05qbfe_mod, Only: fcn, n, nout, x_init_1, x_init_2, x_init_3
       Use types_mod, Only: DP
 
-      Use nag_library, Only: c05qbf, dnrm2, x02ajf
+      Use nag_library, Only: c05qbf, dnrm2
+      Use minpack, Only: dpmpar 
 !     .. Implicit None Statement ..
       Implicit None
 !     .. Local Scalars ..
@@ -6666,7 +6667,7 @@ subroutine c05qbfe(output)
       x(2) = x_init_2
       x(3) = x_init_3 
       
-      xtol = sqrt(x02ajf())
+      xtol = sqrt(dpmpar(1))
 
       ifail = -1
       Call c05qbf(fcn,n,x,fvec,xtol,iuser,ruser,ifail)
