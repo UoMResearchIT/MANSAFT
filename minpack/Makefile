@@ -7,3 +7,7 @@ mansaft.exe: mansaft.f90 dpmpar.f
 .PHONY: run
 run: 
 	./mansaft.exe ../NAG/dmm_methanol.in
+
+.PHONY: clean
+clean:
+	rm -f *.mod *.o
