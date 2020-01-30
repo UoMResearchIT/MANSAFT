@@ -6644,15 +6644,10 @@ subroutine c05qbfe(output)
       Use types_mod, Only: DP
 
       Use nag_library, Only: c05qbf, dnrm2
+      Use minpack
 
 !     .. Implicit None Statement ..
       Implicit None
-
-      INTERFACE
-        double precision function dpmpar(i)
-            integer i
-        end function dpmpar
-      END INTERFACE
 
 !     .. Local Scalars ..
       Real (Kind=DP)               :: fnorm, xtol
