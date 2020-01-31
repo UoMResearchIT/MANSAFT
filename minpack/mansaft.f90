@@ -6595,7 +6595,7 @@ end module Vol_mod
       Public                           :: fcn
 !     .. Parameters ..
       Integer, Parameter, Public       :: n = 3, nout = 6
-	  Real (Kind=DP), Public			   :: P_L, P_V, Mu_L_1, Mu_L_2, Mu_V_1, Mu_V_2, x_1, x_init_1, x_init_2, x_init_3
+	  Real (Kind=DP), Public       :: P_L, P_V, Mu_L_1, Mu_L_2, Mu_V_1, Mu_V_2, x_1, x_init_1, x_init_2, x_init_3
     Contains
       Subroutine fcn(n,x,fvec,iuser,ruser,iflag)
 
@@ -6608,28 +6608,27 @@ end module Vol_mod
         Real (Kind=DP), Intent (In) :: x(n)
         Integer, Intent (Inout)        :: iuser(*)
 !       .. Executable Statements ..
-		v   = x(1)				! Liquid volume is x1
-		Comp_array(1)%xi = x_1 !x1
-		Comp_array(2)%xi = 1.0_DP - x_1 !x2
-		p = Press()
-		P_L = p
-		Mu_L_1 = Mu(1)
-		Mu_L_2 = Mu(2)
-		v   = x(2)				! Vapor volume is x2
-		Comp_array(1)%xi = x(3) ! y1
-		Comp_array(2)%xi =1.0_DP - x(3) !y2
-		p = Press()
-		P_V = p
-		Mu_V_1 = Mu(1)
-		Mu_V_2 = Mu(2)
-		
-		
-		
+        v   = x(1)                      ! Liquid volume is x1
+        Comp_array(1)%xi = x_1 !x1
+        Comp_array(2)%xi = 1.0_DP - x_1 !x2
+        p = Press()
+        P_L = p
+        Mu_L_1 = Mu(1)
+        Mu_L_2 = Mu(2)
+        v   = x(2)                      ! Vapor volume is x2
+        Comp_array(1)%xi = x(3) ! y1
+        Comp_array(2)%xi =1.0_DP - x(3) !y2
+        p = Press()
+        P_V = p
+        Mu_V_1 = Mu(1)
+        Mu_V_2 = Mu(2)
+
+
+
         fvec(1) = P_L - P_V
         fvec(2) = Mu_L_1 - Mu_V_1
-		fvec(3) = Mu_L_2 - Mu_V_2
-		
-        !       Set iflag negative to terminate execution for any reason.
+        fvec(3) = Mu_L_2 - Mu_V_2
+!       Set iflag negative to terminate execution for any reason.
         iflag = 0
         Return
       End Subroutine fcn
@@ -6658,7 +6657,7 @@ subroutine c05qbfe(output)
       Integer                          :: iuser(1)
       !     .. Intrinsic Procedures ..
       Intrinsic                        :: sqrt
-	  Real(Kind=DP)                :: output(3)
+      Real(Kind=DP)                :: output(3)
 !     .. Executable Statements ..
 
       Allocate (fvec(n),x(n))
@@ -6682,28 +6681,24 @@ subroutine c05qbfe(output)
           Write (nout,*)
           Write (nout,*) 'Approximate solution'
         End If
-        !Write (nout,99998)(x(i),i=1,n)
-		Do i = 1, n
+        Do i = 1, n
            output(i) = x(i)
         End Do
       End If
-
-99999 Format (1X,A,E12.4)
-99998 Format (1X,3E12.4)
   return
 End
 !***************************************************************************************************
 program pha1
     use Types_mod           ! Definitions of types and double precision
-	use Global_mod          ! Important global parameters
-	use Press_mod
+    use Global_mod          ! Important global parameters
+    use Press_mod
     use Input_mod
-	use Vol_mod
-	use Mu_mod
+    use Vol_mod
+    use Mu_mod
     use c05qbfe_mod
       implicit none
       integer             ::  i
-	  real(kind=DP)	      :: values(3), mu_1, mu_2
+      real(kind=DP)      :: values(3), mu_1, mu_2
       call Read_input( )
         select case(properties%type)
           case('vle','VLE')
