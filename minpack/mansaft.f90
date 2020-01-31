@@ -6643,8 +6643,8 @@ subroutine c05qbfe(output)
       Use c05qbfe_mod, Only: fcn, n, nout, x_init_1, x_init_2, x_init_3
       Use types_mod, Only: DP
 
-      Use nag_library, Only: c05qbf, dnrm2
-      Use minpack
+      Use nag_library, Only: c05qbf
+      Use minpack, Only: dpmpar, enorm
 
 !     .. Implicit None Statement ..
       Implicit None
@@ -6677,7 +6677,7 @@ subroutine c05qbfe(output)
       If (ifail==0 .Or. ifail==2 .Or. ifail==3 .Or. ifail==4) Then
         If (ifail==0) Then
 !         The NAG name equivalent of dnrm2 is f06ejf
-          fnorm = dnrm2(n,fvec,1)
+          fnorm = enorm(n,fvec)
         Else
           Write (nout,*)
           Write (nout,*) 'Approximate solution'
