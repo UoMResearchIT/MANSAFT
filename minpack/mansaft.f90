@@ -6597,16 +6597,14 @@ end module Vol_mod
       Integer, Parameter, Public       :: n = 3, nout = 6
 	  Real (Kind=DP), Public       :: P_L, P_V, Mu_L_1, Mu_L_2, Mu_V_1, Mu_V_2, x_1, x_init_1, x_init_2, x_init_3
     Contains
-      Subroutine fcn(n,x,fvec,iuser,ruser,iflag)
+      Subroutine fcn(n,x,fvec,iflag)
 
 !       .. Scalar Arguments ..
         Integer, Intent (Inout)        :: iflag
         Integer, Intent (In)           :: n
 !       .. Array Arguments ..
         Real (Kind=DP), Intent (Out) :: fvec(n)
-        Real (Kind=DP), Intent (Inout) :: ruser(*)
         Real (Kind=DP), Intent (In) :: x(n)
-        Integer, Intent (Inout)        :: iuser(*)
 !       .. Executable Statements ..
         v   = x(1)                      ! Liquid volume is x1
         Comp_array(1)%xi = x_1 !x1
@@ -6642,25 +6640,24 @@ subroutine c05qbfe(output)
       Use c05qbfe_mod, Only: fcn, n, nout, x_init_1, x_init_2, x_init_3
       Use types_mod, Only: DP
 
-      Use nag_library, Only: c05qbf
-      Use minpack, Only: dpmpar, enorm
+      Use minpack, Only: dpmpar, enorm, hybrd1
 
 !     .. Implicit None Statement ..
       Implicit None
 
 !     .. Local Scalars ..
-      Real (Kind=DP)               :: fnorm, xtol
-      Integer                          :: i, ifail
+      Real (Kind=DP)               :: fnorm, tol
+      Integer                      :: i, info, lwa = (n*(3*n+13))/2
 !     .. Local Arrays ..
       Real (Kind=DP), Allocatable  :: fvec(:), x(:)
-      Real (Kind=DP)               :: ruser(1)
-      Integer                          :: iuser(1)
+      Real (Kind=DP), allocatable  :: wa(:)
       !     .. Intrinsic Procedures ..
       Intrinsic                        :: sqrt
       Real(Kind=DP)                :: output(3)
 !     .. Executable Statements ..
 
       Allocate (fvec(n),x(n))
+      allocate(wa(lwa))
 
 !     The following starting values provide a rough solution.
 
@@ -6668,14 +6665,12 @@ subroutine c05qbfe(output)
       x(2) = x_init_2
       x(3) = x_init_3 
       
-      xtol = sqrt(dpmpar(1))
+      tol = sqrt(dpmpar(1))
 
-      ifail = -1
-      Call c05qbf(fcn,n,x,fvec,xtol,iuser,ruser,ifail)
+      Call hybrd1(fcn,n,x,fvec,tol,info,wa,lwa)
 
-      If (ifail==0 .Or. ifail==2 .Or. ifail==3 .Or. ifail==4) Then
-        If (ifail==0) Then
-!         The NAG name equivalent of dnrm2 is f06ejf
+      If (info > 0) Then
+        If (info == 1) Then
           fnorm = enorm(n,fvec)
         Else
           Write (nout,*)
@@ -6684,6 +6679,9 @@ subroutine c05qbfe(output)
         Do i = 1, n
            output(i) = x(i)
         End Do
+      else if (info == 0) then
+          write (nout,*) 'Invalid input arguments to hybrd1!'
+          stop
       End If
   return
 End
