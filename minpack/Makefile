@@ -17,52 +17,52 @@ mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 minpack.o: minpack.f ${MINPACK_DEPENDENCIES}
 	${FC} -c $<
 
-Types_mod.o: Types_mod.f95
+Types_mod.o: Types_mod.f90
 	${FC} -c $<
 
-Global_mod.o: Global_mod.f95 Types_mod.o
+Global_mod.o: Global_mod.f90 Types_mod.o
 	${FC} -c $<
 
-GL_mod.o: GL_mod.f95 ${STD_MOD_FILES}
+GL_mod.o: GL_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Input_mod.o: Input_mod.f95 ${STD_MOD_FILES} GL_mod.o
+Input_mod.o: Input_mod.f90 ${STD_MOD_FILES} GL_mod.o
 	${FC} -c $<
 
-Setup_mod.o: Setup_mod.f95 ${STD_MOD_FILES}
+Setup_mod.o: Setup_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Zeff_mod.o: Zeff_mod.f95 ${STD_MOD_FILES}
+Zeff_mod.o: Zeff_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Ideal_mod.o: Ideal_mod.f95 ${STD_MOD_FILES}
+Ideal_mod.o: Ideal_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 	
-Mono_mod.o: Mono_mod.f95 ${STD_MOD_FILES} Zeff_mod.o
+Mono_mod.o: Mono_mod.f90 ${STD_MOD_FILES} Zeff_mod.o
 	${FC} -c $<
 	
-Chain_mod.o: Chain_mod.f95 ${STD_MOD_FILES} Zeff_mod.o
+Chain_mod.o: Chain_mod.f90 ${STD_MOD_FILES} Zeff_mod.o
 	${FC} -c $<
 
-Assoc_mod.o: Assoc_mod.f95 ${STD_MOD_FILES}
+Assoc_mod.o: Assoc_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Ion_mod.o: Ion_mod.f95 ${STD_MOD_FILES}
+Ion_mod.o: Ion_mod.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Diff_mod.o: Diff_mod.f95 ${STD_MOD_FILES} Setup_mod.o
+Diff_mod.o: Diff_mod.f90 ${STD_MOD_FILES} Setup_mod.o
 	${FC} -c $<
 
-Press_mod.o: Press_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
+Press_mod.o: Press_mod.f90 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
 	${FC} -c $<
 
-Mu_mod.o: Mu_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
+Mu_mod.o: Mu_mod.f90 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
 	${FC} -c $<
 
-Vol_mod.o: Vol_mod.f95 ${STD_MOD_FILES} Setup_mod.o Press_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Mu_mod.o
+Vol_mod.o: Vol_mod.f90 ${STD_MOD_FILES} Setup_mod.o Press_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Mu_mod.o
 	${FC} -c $<
 
-solver_mod.o: solver_mod.f95 ${STD_MOD_FILES} Press_mod.o Mu_mod.o Vol_mod.o
+solver_mod.o: solver_mod.f90 ${STD_MOD_FILES} Press_mod.o Mu_mod.o Vol_mod.o
 	${FC} -c $<
 
 .PHONY: clean
