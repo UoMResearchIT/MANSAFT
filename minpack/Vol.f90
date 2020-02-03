@@ -4,20 +4,20 @@
 !***************************************************************************************************
 !
 !***************************************************************************************************
-module Vol_mod
+module Vol
 !***************************************************************************************************
 !Modules
 !=======    
-    use Types_mod           ! Definitions of types and double precision
-    use Global_mod          ! Important global parameters
-    use Setup_mod           ! To setup the system
-    use Press_mod           ! Calculate pressure
-    use Ideal_mod           ! Calculate ideal A
-    use Mono_mod            ! Calculate mono A
-    use Chain_mod           ! Calculate chain A
-    use Assoc_mod           ! Calculate assoc A
-    use Ion_mod             ! Calculate ion A
-    use Mu_mod              ! Calculate chem pot
+    use Types           ! Definitions of types and double precision
+    use Global          ! Important global parameters
+    use Setup           ! To setup the system
+    Use Pressure        ! Calculate pressure
+    use Ideal           ! Calculate ideal A
+    use Mono            ! Calculate mono A
+    use Chain           ! Calculate chain A
+    use Assoc           ! Calculate assoc A
+    use Ion             ! Calculate ion A
+    use ChemPot         ! Calculate chem pot
 !***************************************************************************************************
     implicit none
 !***************************************************************************************************
@@ -308,5 +308,5 @@ module Vol_mod
     end function Vol_dens_g2
 !***************************************************************************************************
 !***************************************************************************************************
-end module Vol_mod
+end module Vol
 !***************************************************************************************************

@@ -1,11 +1,11 @@
 program pha1
-    use Types_mod           ! Definitions of types and double precision
-    use Global_mod          ! Important global parameters
-    use Press_mod
-    use Input_mod
-    use Vol_mod
-    use Mu_mod
-    use solver_mod
+    use Types           ! Definitions of types and double precision
+    use Global          ! Important global parameters
+    Use Pressure
+    use Input
+    use Vol
+    use ChemPot
+    use solver
       implicit none
       integer             ::  i
       real(kind=DP)      :: values(3), mu_1, mu_2

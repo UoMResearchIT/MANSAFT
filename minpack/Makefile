@@ -1,9 +1,9 @@
 FC = gfortran
-OBJECT_FILES = minpack.o Global_mod.o Types_mod.o GL_mod.o Input_mod.o Setup_mod.o \
-               Zeff_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o \
-               Diff_mod.o Press_mod.o Mu_mod.o Vol_mod.o solver_mod.o
+OBJECT_FILES = minpack.o Global.o Types.o GL.o Input.o Setup.o \
+               Z_eff.o Ideal.o Mono.o Chain.o Assoc.o Ion.o \
+               Diff.o Pressure.o ChemPot.o Vol.o solver.o
 MINPACK_DEPENDENCIES = dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
-STD_MOD_FILES = Types_mod.o Global_mod.o 
+STD_MOD_FILES = Types.o Global.o 
 
 .PHONY: run
 run: mansaft.exe
@@ -17,52 +17,52 @@ mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 minpack.o: minpack.f ${MINPACK_DEPENDENCIES}
 	${FC} -c $<
 
-Types_mod.o: Types_mod.f95
+Types.o: Types.f90
 	${FC} -c $<
 
-Global_mod.o: Global_mod.f95 Types_mod.o
+Global.o: Global.f90 Types.o
 	${FC} -c $<
 
-GL_mod.o: GL_mod.f95 ${STD_MOD_FILES}
+GL.o: GL.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Input_mod.o: Input_mod.f95 ${STD_MOD_FILES} GL_mod.o
+Input.o: Input.f90 ${STD_MOD_FILES} GL.o
 	${FC} -c $<
 
-Setup_mod.o: Setup_mod.f95 ${STD_MOD_FILES}
+Setup.o: Setup.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Zeff_mod.o: Zeff_mod.f95 ${STD_MOD_FILES}
+Z_eff.o: Z_eff.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Ideal_mod.o: Ideal_mod.f95 ${STD_MOD_FILES}
+Ideal.o: Ideal.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 	
-Mono_mod.o: Mono_mod.f95 ${STD_MOD_FILES} Zeff_mod.o
+Mono.o: Mono.f90 ${STD_MOD_FILES} Z_eff.o
 	${FC} -c $<
 	
-Chain_mod.o: Chain_mod.f95 ${STD_MOD_FILES} Zeff_mod.o
+Chain.o: Chain.f90 ${STD_MOD_FILES} Z_eff.o
 	${FC} -c $<
 
-Assoc_mod.o: Assoc_mod.f95 ${STD_MOD_FILES}
+Assoc.o: Assoc.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Ion_mod.o: Ion_mod.f95 ${STD_MOD_FILES}
+Ion.o: Ion.f90 ${STD_MOD_FILES}
 	${FC} -c $<
 
-Diff_mod.o: Diff_mod.f95 ${STD_MOD_FILES} Setup_mod.o
+Diff.o: Diff.f90 ${STD_MOD_FILES} Setup.o
 	${FC} -c $<
 
-Press_mod.o: Press_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
+Pressure.o: Pressure.f90 ${STD_MOD_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
-Mu_mod.o: Mu_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
+ChemPot.o: ChemPot.f90 ${STD_MOD_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
-Vol_mod.o: Vol_mod.f95 ${STD_MOD_FILES} Setup_mod.o Press_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Mu_mod.o
+Vol.o: Vol.f90 ${STD_MOD_FILES} Setup.o Pressure.o Ideal.o Mono.o Chain.o Assoc.o Ion.o ChemPot.o
 	${FC} -c $<
 
-solver_mod.o: solver_mod.f95 ${STD_MOD_FILES} Press_mod.o Mu_mod.o Vol_mod.o
+solver.o: solver.f90 ${STD_MOD_FILES} Pressure.o ChemPot.o Vol.o
 	${FC} -c $<
 
 .PHONY: clean

@@ -7,19 +7,19 @@
 !***************************************************************************************************
 !
 !***************************************************************************************************
-module Mu_mod
+module ChemPot
 !***************************************************************************************************
 !Modules
 !=======    
-    use Types_mod           ! Definitions of types and double precision
-    use Global_mod          ! Important global parameters
-    use Setup_mod           ! To setup the system
-    use Ideal_mod           ! Calculate ideal A
-    use Mono_mod            ! Calculate mono A
-    use Chain_mod           ! Calculate chain A
-    use Assoc_mod           ! Calculate assoc A
-    use Ion_mod             ! Calculate ion A
-    use Diff_mod            ! Differentials module  
+    use Types           ! Definitions of types and double precision
+    use Global          ! Important global parameters
+    use Setup           ! To setup the system
+    use Ideal           ! Calculate ideal A
+    use Mono            ! Calculate mono A
+    use Chain           ! Calculate chain A
+    use Assoc           ! Calculate assoc A
+    use Ion             ! Calculate ion A
+    use Diff            ! Differentials module  
 !***************************************************************************************************
     implicit none
 !***************************************************************************************************
@@ -167,5 +167,5 @@ module Mu_mod
 !***************************************************************************************************
 
 !***************************************************************************************************
-end module Mu_mod
+end module ChemPot
 !***************************************************************************************************

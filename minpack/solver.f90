@@ -1,12 +1,12 @@
-Module solver_mod
+Module solver
         ! Module to solve series of non-linear equations
         ! Replaces c05qbf from NAG library
 
-        use Types_mod           ! Definitions of types and double precision
-        use Global_mod          ! Important global parameters
-        use Press_mod
-        use Mu_mod
-        use Vol_mod
+        use Types           ! Definitions of types and double precision
+        use Global          ! Important global parameters
+        Use Pressure
+        use ChemPot
+        use Vol
 
         Implicit None
 
@@ -20,7 +20,7 @@ Module solver_mod
         subroutine solve_nle(output)
                 ! Replaces C05QBF from NAG library
 
-                Use types_mod, Only: DP
+                Use types, Only: DP
                 Use minpack, Only: dpmpar, enorm, hybrd1
 
                 Implicit None
@@ -95,4 +95,4 @@ Module solver_mod
                 iflag = 0
                 Return
         End Subroutine fcn
-End Module solver_mod
+End Module solver
