@@ -8,6 +8,8 @@ STD_MOD_FILES = Types_mod.o Global_mod.o
 .PHONY: run
 run: mansaft.exe
 	./mansaft.exe ../NAG/dmm_methanol.in | tee output.txt
+	@echo "Diff against output from NAG code:"
+	@diff output.txt ../NAG/output.txt
 
 mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 	${FC} $^ -o $@
