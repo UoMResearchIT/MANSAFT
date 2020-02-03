@@ -1,7 +1,7 @@
 FC = gfortran
 OBJECT_FILES = minpack.o Global_mod.o Types_mod.o GL_mod.o Input_mod.o Setup_mod.o \
                Zeff_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o \
-               Diff_mod.o Press_mod.o
+               Diff_mod.o Press_mod.o Mu_mod.o
 MINPACK_DEPENDENCIES = dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
 STD_MOD_FILES = Types_mod.o Global_mod.o 
 
@@ -52,6 +52,9 @@ Diff_mod.o: Diff_mod.f95 ${STD_MOD_FILES} Setup_mod.o
 	${FC} -c $<
 
 Press_mod.o: Press_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
+	${FC} -c $<
+
+Mu_mod.o: Mu_mod.f95 ${STD_MOD_FILES} Setup_mod.o Ideal_mod.o Mono_mod.o Chain_mod.o Assoc_mod.o Ion_mod.o Diff_mod.o
 	${FC} -c $<
 
 .PHONY: clean
