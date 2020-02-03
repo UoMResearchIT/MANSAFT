@@ -1,6 +1,7 @@
 FC = gfortran
 OBJECT_FILES = minpack.o Global_mod.o Types_mod.o GL_mod.o Input_mod.o Setup_mod.o \
                Zeff_mod.o Ideal_mod.o Mono_mod.o
+MINPACK_DEPENDENCIES = dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
 
 .PHONY: run
 run: mansaft.exe
@@ -9,8 +10,8 @@ run: mansaft.exe
 mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 	${FC} $^ -o $@
 
-minpack.o: minpack.f dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
-	${FC} -c minpack.f
+minpack.o: minpack.f ${MINPACK_DEPENDENCIES}
+	${FC} -c $<
 
 Types_mod.o: Types_mod.f95
 	${FC} -c $<
