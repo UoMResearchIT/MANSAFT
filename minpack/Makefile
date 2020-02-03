@@ -4,7 +4,7 @@ FC = gfortran
 run: mansaft.exe
 	./mansaft.exe ../NAG/dmm_methanol.in | tee output.txt
 
-mansaft.exe: mansaft.f90 minpack.o Global_mod.o Types_mod.o GL_mod.o Input_mod.o Setup_mod.o Zeff_mod.o
+mansaft.exe: mansaft.f90 minpack.o Global_mod.o Types_mod.o GL_mod.o Input_mod.o Setup_mod.o Zeff_mod.o Ideal_mod.o
 	${FC} $^ -o $@
 
 minpack.o: minpack.f dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
@@ -26,6 +26,9 @@ Setup_mod.o: Setup_mod.f95 Global_mod.o Types_mod.o
 	${FC} -c $<
 
 Zeff_mod.o: Zeff_mod.f95 Global_mod.o Types_mod.o
+	${FC} -c $<
+
+Ideal_mod.o: Ideal_mod.f95 Types_mod.o Global_mod.o
 	${FC} -c $<
 	
 .PHONY: clean
