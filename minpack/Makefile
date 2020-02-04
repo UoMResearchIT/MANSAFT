@@ -3,7 +3,7 @@ OBJECT_FILES = minpack.o Global.o Types.o GL.o Input.o Setup.o \
                Z_eff.o Ideal.o Mono.o Chain.o Assoc.o Ion.o \
                Diff.o Pressure.o ChemPot.o Vol.o solver.o
 MINPACK_DEPENDENCIES = dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform.f qrfac.f r1mpyq.f r1updt.f
-STD_MOD_FILES = Types.o Global.o 
+STD_O_FILES = Types.o Global.o 
 
 .PHONY: run
 run: mansaft.exe
@@ -23,46 +23,46 @@ Types.o: Types.f90
 Global.o: Global.f90 Types.o
 	${FC} -c $<
 
-GL.o: GL.f90 ${STD_MOD_FILES}
+GL.o: GL.f90 ${STD_O_FILES}
 	${FC} -c $<
 
-Input.o: Input.f90 ${STD_MOD_FILES} GL.o
+Input.o: Input.f90 ${STD_O_FILES} GL.o
 	${FC} -c $<
 
-Setup.o: Setup.f90 ${STD_MOD_FILES}
+Setup.o: Setup.f90 ${STD_O_FILES}
 	${FC} -c $<
 
-Z_eff.o: Z_eff.f90 ${STD_MOD_FILES}
+Z_eff.o: Z_eff.f90 ${STD_O_FILES}
 	${FC} -c $<
 
-Ideal.o: Ideal.f90 ${STD_MOD_FILES}
+Ideal.o: Ideal.f90 ${STD_O_FILES}
 	${FC} -c $<
 	
-Mono.o: Mono.f90 ${STD_MOD_FILES} Z_eff.o
+Mono.o: Mono.f90 ${STD_O_FILES} Z_eff.o
 	${FC} -c $<
 	
-Chain.o: Chain.f90 ${STD_MOD_FILES} Z_eff.o
+Chain.o: Chain.f90 ${STD_O_FILES} Z_eff.o
 	${FC} -c $<
 
-Assoc.o: Assoc.f90 ${STD_MOD_FILES}
+Assoc.o: Assoc.f90 ${STD_O_FILES}
 	${FC} -c $<
 
-Ion.o: Ion.f90 ${STD_MOD_FILES}
+Ion.o: Ion.f90 ${STD_O_FILES}
 	${FC} -c $<
 
-Diff.o: Diff.f90 ${STD_MOD_FILES} Setup.o
+Diff.o: Diff.f90 ${STD_O_FILES} Setup.o
 	${FC} -c $<
 
-Pressure.o: Pressure.f90 ${STD_MOD_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
+Pressure.o: Pressure.f90 ${STD_O_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
-ChemPot.o: ChemPot.f90 ${STD_MOD_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
+ChemPot.o: ChemPot.f90 ${STD_O_FILES} Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
-Vol.o: Vol.f90 ${STD_MOD_FILES} Setup.o Pressure.o Ideal.o Mono.o Chain.o Assoc.o Ion.o ChemPot.o
+Vol.o: Vol.f90 ${STD_O_FILES} Setup.o Pressure.o Ideal.o Mono.o Chain.o Assoc.o Ion.o ChemPot.o
 	${FC} -c $<
 
-solver.o: solver.f90 ${STD_MOD_FILES} Pressure.o ChemPot.o Vol.o
+solver.o: solver.f90 ${STD_O_FILES} Pressure.o ChemPot.o Vol.o
 	${FC} -c $<
 
 .PHONY: clean
