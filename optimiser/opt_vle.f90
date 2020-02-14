@@ -7412,7 +7412,7 @@ End
 		f = p_squ + y_squ(1) + y_squ(2)
    !print*, "f          x(i)"
    write(*, 101)"f=",f, "p_oj=", p_oj, "y_oj1=", y_oj(1), "y_oj2=", y_oj(2),"x(i)=",x(1:opt_num)
-101 Format (/,(2X,A2),(2X,F6.4),(2X,A5),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A5),(2X,F10.4,\))   
+101 Format (/,(2X,A2),(2X,F6.4),(2X,A5),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A5),(2X,F10.4),$)   
 
         Return
 
@@ -7498,7 +7498,7 @@ contains
 		!print*, bl(1:n),bu(1:n),x(1:n),output(1:n)
    print*, "initial values"
    write(*,102) x(1:n)
-102 Format (2X,F9.4,\)
+102 Format (2X,F9.4,$)
       ifail = -1
       Call e04jcf(objfun,n,npt,x,bl,bu,rhobeg,rhoend,monfun,maxcal,f,nf,iuser, &
         ruser,ifail)
@@ -7713,7 +7713,7 @@ program optimiser
 		end do
 	write(*,100)  values(1:opt_num)
 
-100 Format (2X,F9.4,\)
+100 Format (2X,F9.4,$)
 !***************************************************************************************************
 !End time
 !========
