@@ -7412,7 +7412,7 @@ End
 		f = p_squ + y_squ(1) + y_squ(2)
    !print*, "f          x(i)"
    write(*, 101)"f=",f, "p_oj=", p_oj, "y_oj1=", y_oj(1), "y_oj2=", y_oj(2),"x(i)=",x(1:opt_num)
-101 Format (/,(2X,A2),(2X,F6.4),(2X,A5),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A5),(2X,F10.4),$)   
+101 Format ((2X,A2),(2X,F6.4),(2X,A5),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A6),(2X,F6.4),(2X,A5),*(2X,F10.4))
 
         Return
 
