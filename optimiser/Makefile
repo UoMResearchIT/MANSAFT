@@ -7,7 +7,7 @@ optimiser.exe: opt_vle.f90
 
 .PHONY: run
 run: optimiser.exe
-	./optimiser.exe dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in | tee output.txt
+	./$< dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in | tee output.txt
 
 .PHONY: clean
 clean:
