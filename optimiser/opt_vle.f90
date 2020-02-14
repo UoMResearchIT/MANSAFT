@@ -7497,8 +7497,8 @@ contains
 		end do
 		!print*, bl(1:n),bu(1:n),x(1:n),output(1:n)
    print*, "initial values"
-   write(*,102) x(1:n)
-102 Format (2X,F9.4,$)
+   write(*,102, advance='no') x(1:n)
+102 Format (*(2X,F9.4))
       ifail = -1
       Call e04jcf(objfun,n,npt,x,bl,bu,rhobeg,rhoend,monfun,maxcal,f,nf,iuser, &
         ruser,ifail)
