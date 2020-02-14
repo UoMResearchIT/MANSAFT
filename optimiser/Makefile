@@ -5,8 +5,8 @@ optimiser.exe: opt_vle.f90
 	gfortran -I${INTERFACE_BLOCKS} $< ${NAG_LIBRARY} -o $@
 
 .PHONY: run
-run: 
-	./optimiser.exe dmm_mthanol_opt_assoc.in opt_dmm_methanol-assoc.in
+run: optimiser.exe
+	./optimiser.exe dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in
 
 .PHONY: clean
 clean:
