@@ -47,7 +47,7 @@ Quote.o: Quote.f90
 ${TG_OBJS}: %.o: %.f90 Types.o Global.o
 	${FC} -c $<
 
-${Z_OBJS}: %.o : %.f90 Types.o Global.o Z_eff.o
+${Z_OBJS}: %.o : ../minpack/%.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
 .PHONY: clean
