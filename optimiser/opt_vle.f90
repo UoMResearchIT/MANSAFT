@@ -1,251 +1,8 @@
-!***************************************************************************************************
-!***************************************************************************************************
-! Marsaglia & Tsang generator for random normals & random dexponentials.
-! Translated from C by Alan Miller (amiller@bigpond.net.au)
-
-! Marsaglia, G. & Tsang, W.W. (2000) `The ziggurat method for generating
-! random variables', J. Statist. Software, v5(8).
-
-! This is an electronic journal which can be downloaded from:
-! http://www.jstatsoft.org/v05/i08
-
-! N.B. It is assumed that all integers are 32-bit.
-! N.B. The value of M2 has been halved to compensate for the lack of
-!      unsigned integers in Fortran.
-
-! Latest version - 1 January 2001
-
-! Modified by SJH to bring inline with FORTRAN standards
-!***************************************************************************************************
-module Zig_mod
-    use Types
-    implicit none
-    
-    public ::   zigset, uni
-    real(kind=DP), parameter    ::  m1=2147483648.0e0_DP,   m2=2147483648.0e0_DP,half=0.5e0_DP                         
-    real(kind=DP)               ::  dn=3.442619855899e0_DP, tn=3.442619855899e0_DP, vn=0.00991256303526217e0_DP,           &
-                                    q, de=7.697117470131487e0_DP, te=7.697117470131487e0_DP,            &
-                                    ve=0.003949659822581572e0_DP
-    integer, save               ::  iz, jz, jsr=123456789, kn(0:127), ke(0:255), hz                       
-    real(kind=DP), save         ::  wn(0:127), fn(0:127), we(0:255), fe(0:255)
-    logical, save               ::  initialized=.false.
-!***************************************************************************************************
-contains
-!***************************************************************************************************
-subroutine zigset( jsrseed )
-
-   integer, intent(in)  :: jsrseed
-   integer  :: i
-
-   !  Set the seed
-   jsr = jsrseed
-
-   !  Tables for RNOR
-   q = vn*dexp(half*dn*dn)
-   kn(0) = (dn/q)*m1
-   kn(1) = 0
-   wn(0) = q/m1
-   wn(127) = dn/m1
-   fn(0) = 1.0_DP
-   fn(127) = dexp( -half*dn*dn )
-   DO  i = 126, 1, -1
-      dn = dsqrt( -2.0_DP * dlog( vn/dn + dexp( -half*dn*dn ) ) )
-      kn(i+1) = (dn/tn)*m1
-      tn = dn
-      fn(i) = dexp(-half*dn*dn)
-      wn(i) = dn/m1
-   END DO
-
-   !  Tables for Rdexp
-   q = ve*dexp( de )
-   ke(0) = (de/q)*m2
-   ke(1) = 0
-   we(0) = q/m2
-   we(255) = de/m2
-   fe(0) = 1.0_DP
-   fe(255) = dexp( -de )
-   
-   do  i = 254, 1, -1
-      de = -dlog( ve/de + dexp( -de ) )
-      ke(i+1) = m2 * (de/te)
-      te = de
-      fe(i) = dexp( -de )
-      we(i) = de/m2
-   end do
-   initialized = .true.
-   return
-end subroutine zigset
-!***************************************************************************************************
-!  Generate uniformly distributed random numbers
-function uni( ) result( fn_val )
-   real(kind=DP)  ::  fn_val
-
-   fn_val = half + 0.2328306e-9_DP * shr3( )
-   return
-end function uni
-!***************************************************************************************************
-function shr3( ) result( ival )
-   integer  ::  ival
-
-   jz = jsr
-   jsr = IEOR( jsr, ISHFT( jsr,  13 ) )
-   jsr = IEOR( jsr, ISHFT( jsr, -17 ) )
-   jsr = IEOR( jsr, ISHFT( jsr,   5 ) )
-   ival = jz + jsr
-   
-    return
-end function shr3
-!***************************************************************************************************
-end module Zig_mod
 
 
 
-!***************************************************************************************************
-!   SAFT Module to:
-!       1. READ OPTIMISATION INPUT
-!***************************************************************************************************
-!   Created by SJ Halstead Sept 2016
-!
-!
-!***************************************************************************************************
-!
-!***************************************************************************************************
-module Input_opt_mod
-!***************************************************************************************************
-!MODULES
-use Global      ! CONTAINS GLOBAL VARIABLES
-use Types       ! Definition of types and numerical precision
-use Zig_mod         ! RNG
-!***************************************************************************************************
-    implicit none
-!***************************************************************************************************
-contains
-!***************************************************************************************************
-    subroutine Read_opt( n_param, max_param, min_param, in_vals )
-!--------------------------------------------------------------------------
-        implicit none
-!--------------------------------------------------------------------------        
-!Variables
-        integer, intent(out)                    ::  n_param
-        real(kind=DP), allocatable, intent(out) ::  max_param(:), min_param(:)    
-        real(kind=DP), allocatable, intent(out) ::  in_vals(:,:) 
-        
-        integer                                 ::  cinter1, cinter2
-        character(len=80)                       ::  line_l
-        character(len=50)                       ::  fileopt 
 
-        integer                                 ::  ierr
-!seed
-        integer                     ::  seed
-        integer, dimension(1:8)     ::  info            
-!--------------------------------------------------------------------------
-!Open optimise input        
-        call getarg(2,fileopt)
-        
-        open(11, file=fileopt, status="old", action="read", iostat=ierr)
-    
-        if(ierr/=0) then
-            print*, "Failed to open ",fileopt
-            stop
-        end if
-!--------------------------------------------------------------------------        
-!Nparams to fit
-        read(11,*) n_param
-        opt_num = n_param
-        allocate( max_param(1:n_param), min_param(1:n_param), &
-        &   param_key(1:n_param), param_index(1:n_param,1:2), param_index2(1:n_param,1:2))
-		allocate(min_num(1:opt_num), max_num(1:opt_num), init_values(1:opt_num))
-!--------------------------------------------------------------------------       
-!Read params
-!key:
-! 1 sig ii; 2 eps ii; 3 lr ii; 4 la ii; 5 sf; 6 nseg; 7 eps ij; 8 lr ij; 9 eHB; 10 kHB  
-        do cinter1=1, n_param       
-            read(11,'(a80)') line_l
-            read(line_l,*) cinter2
-        
-            if((cinter2==1)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*1000					!1000 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*1000					!1000 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*1000
-			else if ((cinter2==2)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*10					!10 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*10					!10 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*10
-			else if ((cinter2==3)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*100					!1000 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*100					!1000 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*100
-			else if ((cinter2==4)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-			else if ((cinter2==5)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*10000					!10000 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*10000					!10000 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*10000
-			else if ((cinter2==6)) then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1), &
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-            else if((cinter2==7))then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1:2),&
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*10					!10 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*10					!10 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*10
-            else if((cinter2==8))then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1:2),&
-                &   min_param(cinter1), max_param(cinter1), init_values(cinter1)
-				min_param(cinter1)=min_param(cinter1)*100					!1000 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*100					!1000 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*100
-            else if((cinter2==9))then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1:2),&
-                &   param_index2(cinter1,1:2), min_param(cinter1), max_param(cinter1), init_values(cinter1)
-			else if((cinter2==10))then
-                read(line_l,*) param_key(cinter1), param_index(cinter1,1:2),&
-                &   param_index2(cinter1,1:2), min_param(cinter1), max_param(cinter1), init_values(cinter1)	
-				min_param(cinter1)=min_param(cinter1)*10					!10 is to make NAG get converged
-				max_param(cinter1)=max_param(cinter1)*10					!10 is to make NAG get converged
-				init_values(cinter1)=init_values(cinter1)*10
-            else
-                stop "parameter not recognised"
-            end if
-			min_num(cinter1)=min_param(cinter1)
-			max_num(cinter1)=max_param(cinter1)
-			
-        end do
 
-        close(11)
-!--------------------------------------------------------------------------
-!Set rng
-        call date_and_time( values=info )
-        seed=mod(((info(3) + info(7) + info(1)) * info(6) * info(5) +   &
-        &   info(8) + info(2)), info(8) * info(8))      
-        call zigset(seed) !SEED ZIG RNG
-!--------------------------------------------------------------------------
-!Set simplex input
-        allocate( in_vals(1:n_param + 1, 1:n_param))
-
-        do cinter1=1, n_param+1
-        do cinter2=1, n_param
-            in_vals(cinter1, cinter2) = (max_param(cinter2) -        &
-            &       min_param(cinter2)) * uni() + min_param(cinter2)
-        end do
-        end do              
-!--------------------------------------------------------------------------  
-        return
-    end subroutine Read_opt        
-!--------------------------------------------------------------------------    
-
-!***************************************************************************************************
-end module Input_opt_mod
 !***************************************************************************************************
 
 module Setup_mod
@@ -5738,7 +5495,7 @@ contains
 !***************************************************************************************************
 !Modules
 !=======
-        use Zig_mod 
+        use Zig 
 !***************************************************************************************************
     !Variables
     !=========
@@ -6166,7 +5923,7 @@ End
 	  use Global          ! Important global parameters
 	  use Press_mod
 	  use Input
-	  use Input_opt_mod   ! Read optimisation parameters
+	  use Input_opt   ! Read optimisation parameters
 	  use Vol_mod
 	  use c05qbfe_mod
 	  use Mu_mod
@@ -6485,7 +6242,7 @@ program optimiser
 !=======
     use Types       ! Definitions of types and double precision
     use Input       ! Read the input
-    use Input_opt_mod   ! Read optimisation parameters
+    use Input_opt   ! Read optimisation parameters
     use Global      ! Important global parameters
     !use Simplex_mod     ! Simplex optimiser
     use Quote_mod       ! Random quote
