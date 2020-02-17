@@ -18,25 +18,10 @@ Types.o: Types.f90
 Global.o: Global.f90 Types.o
 	${FC} -c $<
 
-GL.o: GL.f90 Types.o Global.o
-	${FC} -c $<
-
-Input.o: Input.f90 Types.o Global.o
-	${FC} -c $<
-
 Zig.o: Zig.f90 Types.o
 	${FC} -c $<
 
 Input_opt.o: Input_opt.f90 Types.o Global.o Zig.o
-	${FC} -c $<
-
-Setup.o: Setup.f90 Global.o Types.o
-	${FC} -c $<
-
-Z_eff.o: Z_eff.f90 Global.o Types.o
-	${FC} -c $<
-
-Ideal.o: Ideal.f90 Global.o Types.o
 	${FC} -c $<
 
 Mono.o: Mono.f90 Types.o Global.o Z_eff.o
@@ -45,10 +30,7 @@ Mono.o: Mono.f90 Types.o Global.o Z_eff.o
 Chain.o: Chain.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
-Assoc.o: Assoc.f90 Types.o Global.o
-	${FC} -c $<
-
-Ion.o: Ion.f90 Types.o Global.o
+%.o: %.f90 Types.o Global.o
 	${FC} -c $<
 
 .PHONY: clean
