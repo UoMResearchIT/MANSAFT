@@ -3,7 +3,7 @@ INTERFACE_BLOCKS = /home/mbexegc2/NAG/fll6i26dfl/nag_interface_blocks
 NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
 EXE = optimiser.exe
 OFILES = Types.o Global.o GL.o Input.o Zig.o Input_opt.o Setup.o Z_eff.o Ideal.o \
-         Mono.o Chain.o Assoc.o Ion.o
+         Mono.o Chain.o Assoc.o Ion.o Diff.o
 
 .PHONY: run
 run: ${EXE}
@@ -28,6 +28,9 @@ Mono.o: Mono.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
 Chain.o: Chain.f90 Types.o Global.o Z_eff.o
+	${FC} -c $<
+
+Diff.o: Diff.f90 Types.o Global.o Setup.o
 	${FC} -c $<
 
 %.o: %.f90 Types.o Global.o
