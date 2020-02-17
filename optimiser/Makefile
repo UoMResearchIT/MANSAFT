@@ -2,10 +2,11 @@ FC = gfortran
 INTERFACE_BLOCKS = /home/mbexegc2/NAG/fll6i26dfl/nag_interface_blocks
 NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
 EXE = optimiser.exe
-OFILES = Types.o Global.o GL.o Input.o Zig.o Input_opt.o Setup.o Z_eff.o Ideal.o \
-         Mono.o Chain.o Assoc.o Ion.o Diff.o Pressure.o ChemPot.o
+OFILES = Types.o Global.o \
+	${TG_OBJS} ${Z_OBJS} Zig.o Input_opt.o Z_eff.o  \
+	Diff.o Pressure.o ChemPot.o
 TG_OBJS = GL.o Input.o Setup.o Z_eff.o Ideal.o Assoc.o Ion.o
-DEPEND_ON_ZEFF = Mono.o Chain.o
+Z_OBJS = Mono.o Chain.o
 
 .PHONY: run
 run: ${EXE}
@@ -26,10 +27,6 @@ Zig.o: Zig.f90 Types.o
 Input_opt.o: Input_opt.f90 Types.o Global.o Zig.o
 	${FC} -c $<
 
-${DEPEND_ON_ZEFF}: %.o : %.f90 Types.o Global.o Z_eff.o
-	${FC} -c $<
-
-
 Diff.o: Diff.f90 Types.o Global.o Setup.o
 	${FC} -c $<
 
@@ -39,7 +36,11 @@ Pressure.o: Pressure.f90 Types.o Global.o Setup.o Ideal.o Mono.o Assoc.o Ion.o D
 ChemPot.o: ChemPot.f90 Types.o Global.o Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
+# Rules for objects with common dependency lists
 ${TG_OBJS}: %.o: %.f90 Types.o Global.o
+	${FC} -c $<
+
+${Z_OBJS}: %.o : %.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
 .PHONY: clean
