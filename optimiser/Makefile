@@ -2,7 +2,7 @@ FC = gfortran
 INTERFACE_BLOCKS = /home/mbexegc2/NAG/fll6i26dfl/nag_interface_blocks
 NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
 EXE = optimiser.exe
-OFILES = Types.o Global.o GL.o
+OFILES = Types.o Global.o GL.o Input.o
 
 .PHONY: run
 run: ${EXE}
@@ -18,6 +18,9 @@ Global.o: Global.f90 Types.o
 	${FC} -c $<
 
 GL.o: GL.f90 Types.o Global.o
+	${FC} -c $<
+
+Input.o: Input.f90 Types.o Global.o
 	${FC} -c $<
 
 .PHONY: clean
