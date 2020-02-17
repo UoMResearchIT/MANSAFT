@@ -4,6 +4,7 @@ NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
 EXE = optimiser.exe
 OFILES = Types.o Global.o GL.o Input.o Zig.o Input_opt.o Setup.o Z_eff.o Ideal.o \
          Mono.o Chain.o Assoc.o Ion.o Diff.o Pressure.o ChemPot.o
+DEPEND_ON_ZEFF = Mono.o Chain.o
 
 .PHONY: run
 run: ${EXE}
@@ -24,11 +25,9 @@ Zig.o: Zig.f90 Types.o
 Input_opt.o: Input_opt.f90 Types.o Global.o Zig.o
 	${FC} -c $<
 
-Mono.o: Mono.f90 Types.o Global.o Z_eff.o
+${DEPEND_ON_ZEFF}: %.o : %.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
-Chain.o: Chain.f90 Types.o Global.o Z_eff.o
-	${FC} -c $<
 
 Diff.o: Diff.f90 Types.o Global.o Setup.o
 	${FC} -c $<
