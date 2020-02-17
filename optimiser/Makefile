@@ -4,7 +4,7 @@ NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
 EXE = optimiser.exe
 OFILES = Types.o Global.o \
 	${TG_OBJS} ${Z_OBJS} Zig.o Input_opt.o Z_eff.o  \
-	Diff.o Pressure.o ChemPot.o Vol.o
+	Diff.o Pressure.o ChemPot.o Vol.o Quote.o
 TG_OBJS = GL.o Input.o Setup.o Z_eff.o Ideal.o Assoc.o Ion.o
 Z_OBJS = Mono.o Chain.o
 COMMON_DEPS = Types.o Global.o Setup.o Ideal.o Mono.o Assoc.o Ion.o Diff.o
@@ -38,6 +38,9 @@ ChemPot.o: ChemPot.f90 ${COMMON_DEPS} Chain.o
 	${FC} -c $<
 
 Vol.o: Vol.f90 ${COMMON_DEPS} Pressure.o Chain.o ChemPot.o
+	${FC} -c $<
+
+Quote.o: Quote.f90
 	${FC} -c $<
 
 # Rules for objects with common dependency lists
