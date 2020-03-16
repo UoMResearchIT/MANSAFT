@@ -24,7 +24,7 @@ contains
 !--------------------------------------------------------------------------        
 !Variables        
         !local do counters
-        integer         ::  i1,i2,i3,i4,ierr
+        integer         ::  i1,i2,i3,ierr
         integer         ::  j1,j2,j3,j4
         !input file
         character(len=80)               ::  filein
@@ -34,8 +34,6 @@ contains
         !temp values
         real(kind=DP)   ::  doub,doub2
         !gl input
-        integer                         ::  cfin        
-        character(len=80)               ::  path,path1        
 !--------------------------------------------------------------------------        
 !Read file        
         if(present(testinput)) then
