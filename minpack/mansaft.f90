@@ -38,5 +38,5 @@ program pha1
                     end do
           end select           
       stop
-100 Format ('  ',F7.2,'  ',F8.2,'  ',F5.3,'  ',F5.3,'  'E11.4,'  ',E11.4)  
+100 Format ('  ',F7.2,'  ',F8.2,'  ',F5.3,'  ',F5.3,'  ',E11.4,'  ',E11.4)
 end
