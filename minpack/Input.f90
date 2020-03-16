@@ -41,7 +41,7 @@ contains
         if(present(testinput)) then
             filein = testinput
         else  
-            call getarg(1,filein)        
+            call get_command_argument(1,filein)
         end if
    
         open(11, file=filein, status="old", action="read", iostat=ierr)
