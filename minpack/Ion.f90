@@ -382,9 +382,12 @@ module Ion
                 do i_ion2=1, nstypes
                     if(Seg_array(i_ion2)%charged) then
                         do i_ion3=1, Comp_array(i_ion1)%comp(i_ion2)
-                            qtemp = ( Seg_array(i_ion2)%q * QE - (PI / 2.0e0_DP / del_l) *  &
-                            &       Seg_array(i_ion2)%sig**2.0e0_DP * pn_l ) / (1.0e0_DP + shield * Seg_array(i_ion2)%sig)                     
-                            shield_l = shield_l + Comp_array(i_ion1)%nm * qtemp**2.0e0_DP                                
+                            qtemp = ( &
+                                     Seg_array(i_ion2)%q * QE - (PI / 2.0e0_DP / del_l)  &
+                                     * Seg_array(i_ion2)%sig**2.0e0_DP * pn_l &
+                                    ) &
+                                    / (1.0e0_DP + shield * Seg_array(i_ion2)%sig)                     
+                            shield_l = shield_l + Comp_array(i_ion1)%nm * qtemp**2.0e0_DP
                         end do
                     end if 
                 end do
@@ -531,9 +534,9 @@ module Ion
                 do i_ion2=1, nstypes
                     if(Seg_array(i_ion2)%charged) then
                         do i_ion3=1, Comp_array(i_ion1)%comp(i_ion2)
-                            qtemp(i_ion1,i_ion2,i_ion3) =                                   &
-                            &       ( Seg_array(i_ion2)%q * QE - (PI / 2.0e0_DP / del_l) *  &
-                            &       Seg_array(i_ion2)%sig**2.0e0_DP * pn_l ) / (1.0e0_DP + shield * Seg_array(i_ion2)%sig)                     
+                            qtemp(i_ion1,i_ion2,i_ion3) = ( Seg_array(i_ion2)%q * QE - (PI / 2.0e0_DP / del_l) &
+                                    * Seg_array(i_ion2)%sig**2.0e0_DP * pn_l ) &
+                                    / (1.0e0_DP + shield * Seg_array(i_ion2)%sig)                     
 
                             shield_l = shield_l + Comp_array(i_ion1)%nm * qtemp(i_ion1,i_ion2,i_ion3)**2.0e0_DP                     
                         end do
@@ -676,7 +679,7 @@ module Ion
                             temp_v  = 1.0e0_DP + shield * Seg_array(i_ion2)%sig
                             temp_vp = shield_lp * Seg_array(i_ion2)%sig 
     
-                            qtempp(i_ion1,i_ion2,i_ion3) = (temp_v * temp_up - temp_u * temp_vp) / temp_v**2.0e0_DP                              
+                            qtempp(i_ion1,i_ion2,i_ion3) = (temp_v * temp_up - temp_u * temp_vp) / temp_v**2.0e0_DP
                         end do
                     end if 
                 end do
@@ -876,7 +879,7 @@ module Ion
                         do i_ion3=1, Comp_array(i_ion1)%comp(i_ion2)
                             qtemp(i_ion1,i_ion2,i_ion3) =                                   &
                             &       ( Seg_array(i_ion2)%q * QE - (PI / 2.0e0_DP / del_l) *  &
-                            &       Seg_array(i_ion2)%sig**2.0e0_DP * pn_l ) / (1.0e0_DP + shield * Seg_array(i_ion2)%sig)                     
+                            &       Seg_array(i_ion2)%sig**2.0e0_DP * pn_l ) / (1.0e0_DP + shield * Seg_array(i_ion2)%sig) 
 
                             shield_l = shield_l + Comp_array(i_ion1)%nm * qtemp(i_ion1,i_ion2,i_ion3)**2.0e0_DP                     
                         end do
@@ -1010,7 +1013,7 @@ module Ion
                             &   (pn_l*del_lp - del_l*pn_lp)                     / &
                             &   (2.0e0_DP * del_l**2.0e0_DP)
 
-                            qtempp(i_ion1,i_ion2,i_ion3) = (temp_v * temp_up - temp_u * temp_vp) / temp_v**2.0e0_DP                              
+                            qtempp(i_ion1,i_ion2,i_ion3) = (temp_v * temp_up - temp_u * temp_vp) / temp_v**2.0e0_DP
                         end do
                     end if 
                 end do

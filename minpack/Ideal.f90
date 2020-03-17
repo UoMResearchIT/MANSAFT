@@ -43,7 +43,9 @@ module Ideal
         a_res = 0.0e0_DP
 
         do i_a=1,nctypes
-            if(Comp_array(i_a)%xi/=0.0e0_DP) a_res = a_res + Comp_array(i_a)%dxin*dlog(Comp_array(i_a)%nm/v * Comp_array(i_a)%db3)     
+            if (Comp_array(i_a)%xi/=0.0e0_DP) then
+                a_res = a_res + Comp_array(i_a)%dxin*dlog(Comp_array(i_a)%nm/v * Comp_array(i_a)%db3)
+            endif
         end do
         
         a_res = nsum *( a_res +  Comp_array(i_part)%xi * 1.0e0_DP/Comp_array(i_part)%nm ) +  A_ideal()   

@@ -244,7 +244,7 @@ module Assoc
             &   x(mac1, mac2, mac3) * rho * Comp_array(mac1)%comp(mac2) * Seg_array(mac2)%nassoctyp(mac3)               * &
             &   Comp_array(mac1)%xi * delx( mac1, mac2, mac3, mac1, mac2, mac3 )        ) 
 
-            if(dabs((dxn(mac1, mac2, mac3) - dxn_old(mac1, mac2, mac3))/dxn(mac1, mac2, mac3)) > CRITERIA) converged=.false.               
+            if(dabs((dxn(mac1, mac2, mac3) - dxn_old(mac1, mac2, mac3))/dxn(mac1, mac2, mac3)) > CRITERIA) converged=.false.
         end do
         
         end if   
@@ -337,7 +337,7 @@ module Assoc
         do i_dx2=1, Seg_array(i_dx1)%nassoc
             do i_dx3=1, nstypes
             do i_dx4=1, Seg_array(i_dx3)%nassoc               
-                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP                                
+                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP
             end do
             end do
         end do
@@ -392,7 +392,7 @@ module Assoc
         do i_dx2=1, Seg_array(i_dx1)%nassoc
             do i_dx3=1, nstypes
             do i_dx4=1, Seg_array(i_dx3)%nassoc               
-                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP                                
+                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP
             end do
             end do
         end do
@@ -446,7 +446,7 @@ module Assoc
         do i_dx2=1, Seg_array(i_dx1)%nassoc
             do i_dx3=1, nstypes
             do i_dx4=1, Seg_array(i_dx3)%nassoc               
-                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP                                
+                f_x(i_dx1, i_dx2, i_dx3, i_dx4) = dexp( ehb(i_dx1, i_dx2, i_dx3, i_dx4) / T) - 1.0e0_DP
             end do
             end do
         end do
