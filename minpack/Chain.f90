@@ -1150,8 +1150,8 @@ module Chain
         real(kind=DP)       ::  as2grad_out
         !differentials
         real(kind=DP)       ::  dd_zetaxn, dl_denomn, ddkhsn
-        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
-        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
+        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4
+        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p
         real(kind=DP)       ::  dl_aan, dl_arn, dl_rrn
         real(kind=DP)       ::  dl_zaapn, dl_zarpn, dl_zrrpn
         real(kind=DP)       ::  dl_zaan, dl_zarn, dl_zrrn
@@ -1396,8 +1396,8 @@ module Chain
         real(kind=DP)       ::  as2grad_out
         !differentials
         real(kind=DP)       ::  dd_zetaxv, dl_denomv, ddkhsv
-        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
-        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
+        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4
+        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p
         real(kind=DP)       ::  dl_aav, dl_arv, dl_rrv
         real(kind=DP)       ::  dl_zaapv, dl_zarpv, dl_zrrpv
         real(kind=DP)       ::  dl_zaav, dl_zarv, dl_zrrv
