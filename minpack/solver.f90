@@ -49,6 +49,7 @@ Module solver
                 If (info > 0) Then
                         If (info == 1) Then
                           fnorm = enorm(n,fvec)
+                          Write (nout,*) 'Final 2-norm of the residuals =', fnorm
                         Else
                           Write (nout,*)
                           Write (nout,*) 'Approximate solution'
