@@ -11,9 +11,14 @@ endif
 
 .PHONY: run
 run: mansaft.exe
-	./mansaft.exe ../NAG/dmm_methanol.in | tee output.txt
+	./mansaft.exe ../NAG/dmm_methanol.in | tee output.txt 
+
+.PHONY: diff
+diff: output.txt
 	@echo "Diff against output from NAG code:"
 	@diff output.txt ../NAG/output.txt
+
+output.txt: run
 
 mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 	${FC} ${OPT} $^ -o $@
@@ -72,3 +77,4 @@ solver.o: solver.f90 ${STD_O_FILES} Pressure.o ChemPot.o Vol.o
 .PHONY: clean
 clean:
 	rm -f *.mod *.o
+	rm -f output.txt
