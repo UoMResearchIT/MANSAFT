@@ -213,6 +213,8 @@ module Ion
         integer         ::  i_born1, i_born2, i_born3
 
         bsum=0.0e0_DP
+        x_solv=0.0e0_DP
+        ddiel=0.0e0_DP
         
         if(ion_switch) then 
             do i_born1=1, nctypes
@@ -226,9 +228,6 @@ module Ion
                 end do
             end do
             
-            x_solv=0.0e0_DP
-            ddiel=0.0e0_DP
-           
             do i_born1=1, nctypes
                 if(Comp_array(i_born1)%solv) x_solv = x_solv + Comp_array(i_born1)%xi
             end do
