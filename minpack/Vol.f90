@@ -44,6 +44,7 @@ module Vol
         
         lr  = 0.0e0_DP
         i_rho = 1
+        lp1  = 0.0e0_DP
                   
         do      
             if(i_rho<100) then
