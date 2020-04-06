@@ -6,7 +6,7 @@ MINPACK_DEPENDENCIES = dogleg.f dpmpar.f enorm.f fdjac1.f hybrd1.f hybrd.f qform
 STD_O_FILES = Types.o Global.o 
 
 ifeq (${FC}, nagfor)
-  OPT = -C=all -u -C=undefined -g -gline -mtrace=on,line,paranoia -Warn=allocation -Warn=subnormal -ieee=stop
+  OPT = -C=all -u -C=undefined -g -gline -Warn=allocation -Warn=subnormal -ieee=stop
 endif
 
 .PHONY: run
