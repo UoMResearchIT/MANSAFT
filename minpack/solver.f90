@@ -21,11 +21,11 @@ Module solver
                 ! Replaces C05QBF from NAG library
 
                 Use types, Only: DP
-                Use minpack, Only: dpmpar, enorm, hybrd1
+                Use minpack, Only: dpmpar, hybrd1
 
                 Implicit None
 
-                Real (Kind=DP)               :: fnorm, tol
+                Real (Kind=DP)               :: tol
                 Integer                      :: i, info, lwa = (n*(3*n+13))/2
 
                 Real (Kind=DP), Allocatable  :: fvec(:), x(:)
@@ -48,8 +48,7 @@ Module solver
 
                 If (info > 0) Then
                         If (info == 1) Then
-                          fnorm = enorm(n,fvec)
-                          Write (nout,*) 'Final 2-norm of the residuals =', fnorm
+                          continue
                         Else
                           Write (nout,*)
                           Write (nout,*) 'Approximate solution'
