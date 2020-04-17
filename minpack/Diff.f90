@@ -169,7 +169,7 @@ module Diff
         
         real(kind=DP)       ::  t_dii
         real(kind=DP)       ::  diffv, diffu, diffvp, diffup
-        real(kind=DP)       ::  tdiff1, tdiff2, tdiff3
+        real(kind=DP)       ::  tdiff1
         integer             ::  i_vdiff1, i_vdiff2
     
         call Sys_setup() !ensure eveything initialised   

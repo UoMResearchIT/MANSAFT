@@ -131,10 +131,9 @@ module Mono
         implicit none
         
         integer         ::  i_a1, i_a2
-        real(kind=DP)   ::  a_res, mono_u, mono_up
+        real(kind=DP)   ::  a_res, mono_u
   
         mono_u   = 0.0e0_DP
-        mono_up  = 0.0e0_DP
         
         do i_a1=1,nctypes
         if(Comp_array(i_a1)%xi/=0.0e0_DP) then        

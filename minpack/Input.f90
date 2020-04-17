@@ -24,7 +24,7 @@ contains
 !--------------------------------------------------------------------------        
 !Variables        
         !local do counters
-        integer         ::  i1,i2,i3,i4,ierr
+        integer         ::  i1,i2,i3,ierr
         integer         ::  j1,j2,j3,j4
         !input file
         character(len=80)               ::  filein
@@ -34,14 +34,12 @@ contains
         !temp values
         real(kind=DP)   ::  doub,doub2
         !gl input
-        integer                         ::  cfin        
-        character(len=80)               ::  path,path1        
 !--------------------------------------------------------------------------        
 !Read file        
         if(present(testinput)) then
             filein = testinput
         else  
-            call getarg(1,filein)        
+            call get_command_argument(1,filein)
         end if
    
         open(11, file=filein, status="old", action="read", iostat=ierr)
@@ -388,13 +386,13 @@ contains
                 do i1=1,properties%n
                     read(11,*) properties%xi(i1, 1:nctypes), properties%v(i1), properties%t(i1)
                 end do                 
-!********************************************************************************************************************************
+!************************************************************************************************************
             !special - temporary testng input choice
             case('spec')
 !                do i1=1,properties%n
 !                    read(11,*) properties%t(i1),properties%p(i1)!,properties%xi(i1,1:nctypes)
 !                end do
-!********************************************************************************************************************************                                               
+!************************************************************************************************************                        
             !Optimiser
             case('OPT','Opt','opt')   
                 read(11,*) properties%opt(:) 
@@ -492,7 +490,7 @@ contains
                         end if
                     end do
                 end if
-!********************************************************************************************************************************                                               
+!************************************************************************************************************
             !Electrolyte optimiser
             case('eopt','EOPT')   
                 
@@ -550,7 +548,7 @@ contains
                     read(11,*) properties%t_liqc(i1),properties%p_liqc(i1),properties%xic(i1,1:nctypes), &
                     &   properties%cp(i1)
                 end do
-!********************************************************************************************************************************             
+!************************************************************************************************************             
             case default
                 print*, "Unrecognised property ", properties%type
                 stop

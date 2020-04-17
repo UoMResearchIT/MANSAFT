@@ -718,12 +718,12 @@ module Chain
         
         real(kind=DP),intent(in)    ::  cc, xx, dd, lla, llr, leps
         real(kind=DP)               ::  as1grad_out
-        real(kind=DP)               ::  l_da1, l_dr1, l_const1a, l_const1r, l_za, l_zr, l_zap, l_zrp
-        real(kind=DP)               ::  l_dBa, l_dBr, l_Ja, l_Jr, l_Ia, l_Ir, l_const2
+        real(kind=DP)               ::  l_const1a, l_const1r, l_za, l_zr, l_zap, l_zrp
+        real(kind=DP)               ::  l_Ja, l_Jr, l_Ia, l_Ir, l_const2
         !differentials
         real(kind=DP)               ::  dl_zan, dl_zrn, dl_zapn, dl_zrpn
         real(kind=DP)               ::  dl_da1n, dl_dr1n, dl_dBan, dl_dBrn
-        real(kind=DP)               ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
+        real(kind=DP)               ::  temp_3,temp_4,temp_5,temp_6,temp_7
         real(kind=DP)               ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
 
         l_const1a = PI * leps*dd**3.0e0_DP / (lla - 3.0e0_DP)
@@ -739,11 +739,6 @@ module Chain
         dl_zapn = dzeffprimen(lla)
         dl_zrpn = dzeffprimen(llr)
              
-        l_da1 = -2.0e0_DP * l_const1a * ( (1.0e0_DP - l_za/2.0e0_DP) / (1.0e0_DP - l_za)**3.0e0_DP + rhos *  &
-        &   (2.5e0_DP * l_zap - l_zap * l_za) / (1.0e0_DP - l_za)**4.0e0_DP)
-
-        l_dr1 = -2.0e0_DP * l_const1r * ( (1.0e0_DP - l_zr/2.0e0_DP) / (1.0e0_DP - l_zr)**3.0e0_DP + rhos *  &
-        &   (2.5e0_DP * l_zrp - l_zrp * l_zr) / (1.0e0_DP - l_zr)**4.0e0_DP)
 
         dl_da1n = -2.0e0_DP * l_const1a                                                                     * &
         &   ( ((1.0e0_DP - l_za)**3.0e0_DP*(-dl_zan/2.0e0_DP)                                               + &
@@ -773,23 +768,10 @@ module Chain
         l_Jr = -(xx**(4.0e0_DP - llr) * (llr - 3.0e0_DP) - xx**(3.0e0_DP - llr) * (llr - 4.0e0_DP) - 1.0e0_DP) / &
         &   ((llr - 3.0e0_DP) * (llr - 4.0e0_DP))   
 
-        l_dBa = l_const2 * (l_Ia * (((1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP )                 +   &
-                &   zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP)                                      -   &   
-                &   l_Ja * (zetax/( 2.0d0 * ( 1.0e0_DP - zetax )**3.0e0_DP ) * (( 9.0e0_DP * (1.0e0_DP + zetax))    +   &
-                &   (( 9.0e0_DP  * ( 1.0e0_DP + 2.0e0_DP * zetax ) * 2.0e0_DP * ( 1.0e0_DP - zetax )  )             +   &
-                &   ( 9.e0_DP * ( zetax + zetax**2.0e0_DP ) * 6.0e0_DP ) ) / ( 2.0e0_DP * (1.0e0_DP - zetax) ))  ))
         
-        l_dBr = l_const2 * (l_Ir * (((1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP )                 +   &
-                &   zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP)                                      -   &   
-                &   l_Jr * (zetax/( 2.0d0 * ( 1.0e0_DP - zetax )**3.0e0_DP ) * (( 9.0e0_DP * (1.0e0_DP + zetax))    +   &
-                &   (( 9.0e0_DP  * ( 1.0e0_DP + 2.0e0_DP * zetax ) * 2.0e0_DP * ( 1.0e0_DP - zetax )  )             +   &
-                &   ( 9.e0_DP * ( zetax + zetax**2.0e0_DP ) * 6.0e0_DP ) ) / ( 2.0e0_DP * (1.0e0_DP - zetax) ))  ))
-        
-        temp_1  = (1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP   
         temp_1p = ((-dzetaxn / 2.0e0_DP)*(1.0e0_DP - zetax)**3.0e0_DP + 3.0e0_DP*dzetaxn*(1.0e0_DP              - &
         &   zetax)**2.0e0_DP)*(1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**6.0e0_DP  
         
-        temp_2  = zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP
         temp_2p = dzetaxn * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP                                   + &
         &   zetax * (-dzetaxn*(1.0e0_DP - zetax)**4.0e0_DP + 4.0e0_DP*dzetaxn*(1.0e0_DP - zetax)**3.0e0_DP      * &
         &   (2.5e0_DP - zetax)) /  (1.0e0_DP - zetax)**8.0e0_DP
@@ -829,12 +811,12 @@ module Chain
         
         real(kind=DP),intent(in)    ::  cc, xx, dd, lla, llr, leps
         real(kind=DP)               ::  as1grad_out
-        real(kind=DP)               ::  l_da1, l_dr1, l_const1a, l_const1r, l_za, l_zr, l_zap, l_zrp
-        real(kind=DP)               ::  l_dBa, l_dBr, l_Ja, l_Jr, l_Ia, l_Ir, l_const2
+        real(kind=DP)               ::  l_const1a, l_const1r, l_za, l_zr, l_zap, l_zrp
+        real(kind=DP)               ::  l_Ja, l_Jr, l_Ia, l_Ir, l_const2
         !differentials
         real(kind=DP)               ::  dl_zav, dl_zrv, dl_zapv, dl_zrpv
         real(kind=DP)               ::  dl_da1v, dl_dr1v, dl_dBav, dl_dBrv
-        real(kind=DP)               ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
+        real(kind=DP)               ::  temp_3,temp_4,temp_5,temp_6,temp_7
         real(kind=DP)               ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
 
         l_const1a = PI * leps*dd**3.0e0_DP / (lla - 3.0e0_DP)
@@ -850,11 +832,6 @@ module Chain
         dl_zapv = dzeffprimev(lla)
         dl_zrpv = dzeffprimev(llr)
      
-        l_da1 = -2.0e0_DP * l_const1a * ( (1.0e0_DP - l_za/2.0e0_DP) / (1.0e0_DP - l_za)**3.0e0_DP + rhos *  &
-        &   (2.5e0_DP * l_zap - l_zap * l_za) / (1.0e0_DP - l_za)**4.0e0_DP)
-
-        l_dr1 = -2.0e0_DP * l_const1r * ( (1.0e0_DP - l_zr/2.0e0_DP) / (1.0e0_DP - l_zr)**3.0e0_DP + rhos *  &
-        &   (2.5e0_DP * l_zrp - l_zrp * l_zr) / (1.0e0_DP - l_zr)**4.0e0_DP)
 
         dl_da1v = -2.0e0_DP * l_const1a                                                                     * &
         &   ( ((1.0e0_DP - l_za)**3.0e0_DP*(-dl_zav/2.0e0_DP)                                               + &
@@ -862,7 +839,7 @@ module Chain
         &   (1.0e0_DP - l_za)**6.0e0_DP                                                                     + &
         &   drhosv * (2.5e0_DP * l_zap - l_zap * l_za) / (1.0e0_DP - l_za)**4.0e0_DP                        + &
         &   rhos * ((1.0e0_DP - l_za)**4.0e0_DP*(2.5e0_DP * dl_zapv - (dl_zapv*l_za + l_zap*dl_zav))        + &
-        &   4.0e0_DP * dl_zav  * &!ALTERED THESE dl_zav from dl_zapv                                                                            
+        &   4.0e0_DP * dl_zav  * &!ALTERED THESE dl_zav from dl_zapv
         &   (1.0e0_DP - l_za)**3.0e0_DP * (2.5e0_DP * l_zap - l_zap * l_za)) / (1.0e0_DP - l_za)**8.0e0_DP)
 
         dl_dr1v = -2.0e0_DP * l_const1r                                                                     * &
@@ -884,23 +861,9 @@ module Chain
         l_Jr = -(xx**(4.0e0_DP - llr) * (llr - 3.0e0_DP) - xx**(3.0e0_DP - llr) * (llr - 4.0e0_DP) - 1.0e0_DP) / &
         &   ((llr - 3.0e0_DP) * (llr - 4.0e0_DP))   
 
-        l_dBa = l_const2 * (l_Ia * (((1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP )                 +   &
-                &   zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP)                                      -   &   
-                &   l_Ja * (zetax/( 2.0d0 * ( 1.0e0_DP - zetax )**3.0e0_DP ) * (( 9.0e0_DP * (1.0e0_DP + zetax))    +   &
-                &   (( 9.0e0_DP  * ( 1.0e0_DP + 2.0e0_DP * zetax ) * 2.0e0_DP * ( 1.0e0_DP - zetax )  )             +   &
-                &   ( 9.e0_DP * ( zetax + zetax**2.0e0_DP ) * 6.0e0_DP ) ) / ( 2.0e0_DP * (1.0e0_DP - zetax) ))  ))
-        
-        l_dBr = l_const2 * (l_Ir * (((1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP )                 +   &
-                &   zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP)                                      -   &   
-                &   l_Jr * (zetax/( 2.0d0 * ( 1.0e0_DP - zetax )**3.0e0_DP ) * (( 9.0e0_DP * (1.0e0_DP + zetax))    +   &
-                &   (( 9.0e0_DP  * ( 1.0e0_DP + 2.0e0_DP * zetax ) * 2.0e0_DP * ( 1.0e0_DP - zetax )  )             +   &
-                &   ( 9.e0_DP * ( zetax + zetax**2.0e0_DP ) * 6.0e0_DP ) ) / ( 2.0e0_DP * (1.0e0_DP - zetax) ))  ))
-        
-        temp_1  = (1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**3.0e0_DP   
         temp_1p = ((-dzetaxv / 2.0e0_DP)*(1.0e0_DP - zetax)**3.0e0_DP + 3.0e0_DP*dzetaxv*(1.0e0_DP              - &
         &   zetax)**2.0e0_DP)*(1.0e0_DP - zetax / 2.0e0_DP) / (1.0e0_DP - zetax)**6.0e0_DP 
         
-        temp_2  = zetax * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP
         temp_2p = dzetaxv * (2.5e0_DP - zetax) / (1.0e0_DP - zetax)**4.0e0_DP                                   + &
         &   zetax * (-dzetaxv*(1.0e0_DP - zetax)**4.0e0_DP + 4.0e0_DP*dzetaxv*(1.0e0_DP - zetax)**3.0e0_DP      * &
         &   (2.5e0_DP - zetax)) /  (1.0e0_DP - zetax)**8.0e0_DP
@@ -1187,8 +1150,8 @@ module Chain
         real(kind=DP)       ::  as2grad_out
         !differentials
         real(kind=DP)       ::  dd_zetaxn, dl_denomn, ddkhsn
-        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
-        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
+        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4
+        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p
         real(kind=DP)       ::  dl_aan, dl_arn, dl_rrn
         real(kind=DP)       ::  dl_zaapn, dl_zarpn, dl_zrrpn
         real(kind=DP)       ::  dl_zaan, dl_zarn, dl_zrrn
@@ -1433,8 +1396,8 @@ module Chain
         real(kind=DP)       ::  as2grad_out
         !differentials
         real(kind=DP)       ::  dd_zetaxv, dl_denomv, ddkhsv
-        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4,temp_5,temp_6,temp_7
-        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p,temp_5p,temp_6p,temp_7p
+        real(kind=DP)       ::  temp_1,temp_2,temp_3,temp_4
+        real(kind=DP)       ::  temp_1p,temp_2p,temp_3p,temp_4p
         real(kind=DP)       ::  dl_aav, dl_arv, dl_rrv
         real(kind=DP)       ::  dl_zaapv, dl_zarpv, dl_zrrpv
         real(kind=DP)       ::  dl_zaav, dl_zarv, dl_zrrv

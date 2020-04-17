@@ -92,9 +92,7 @@ contains
     subroutine  Rho_set()     
         implicit none
 
-        real(kind=DP)    ::  trho, tsum
-      
-        tsum = sum(Comp_array(:)%nm)
+        real(kind=DP)    ::  trho
 
         !Density moles per m^3
         rho = 0.0e0_DP       

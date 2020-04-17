@@ -21,11 +21,11 @@ Module solver
                 ! Replaces C05QBF from NAG library
 
                 Use types, Only: DP
-                Use minpack, Only: dpmpar, enorm, hybrd1
+                Use minpack, Only: dpmpar, hybrd1
 
                 Implicit None
 
-                Real (Kind=DP)               :: fnorm, tol
+                Real (Kind=DP)               :: tol
                 Integer                      :: i, info, lwa = (n*(3*n+13))/2
 
                 Real (Kind=DP), Allocatable  :: fvec(:), x(:)
@@ -46,20 +46,19 @@ Module solver
 
                 Call hybrd1(fcn,n,x,fvec,tol,info,wa,lwa)
 
-                If (info > 0) Then
-                        If (info == 1) Then
-                          fnorm = enorm(n,fvec)
-                        Else
+                if (info == 0) then
+                  write (nout,*) 'Invalid input arguments to hybrd1!'
+                  stop
+                else if (info > 0) Then
+                        Do i = 1, n
+                           output(i) = x(i)
+                        End Do
+
+                        If (info > 1) Then
                           Write (nout,*)
                           Write (nout,*) 'Approximate solution'
                         End If
 
-                        Do i = 1, n
-                           output(i) = x(i)
-                        End Do
-                else if (info == 0) then
-                  write (nout,*) 'Invalid input arguments to hybrd1!'
-                  stop
                 End If
 
                 return
