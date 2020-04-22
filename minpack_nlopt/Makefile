@@ -8,6 +8,7 @@ Z_OBJECT_FILES = Mono.o Chain.o
 COMMON_DEPENDENCIES = Types.o Global.o Setup.o Ideal.o Mono.o Assoc.o Ion.o Diff.o
 NL_DIR = ${HOME}/Downloads/nlopt
 NLOPT = -I${NL_DIR}/include -L${NL_DIR}/lib -lnlopt -lm 
+MP_DIR = ../minpack
 
 .PHONY: all
 all: mansaft.exe optimiser.exe
@@ -37,7 +38,7 @@ Input.o: Input.f90 Types.o Global.o GL.o
 GL.o: GL.f90 Types.o Global.o
 	${FC} -c $<
 
-Setup.o: Setup.f90 Types.o Global.o
+Setup.o: ${MP_DIR}/Setup.f90 Types.o Global.o
 	${FC} -c $<
 
 Z_eff.o: Z_eff.f90 Types.o Global.o
