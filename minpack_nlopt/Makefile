@@ -7,7 +7,12 @@ STD_O_FILES = Types.o Global.o
 NL_DIR = ${HOME}/Downloads/nlopt
 NLOPT = -I${NL_DIR}/include -L${NL_DIR}/lib -lnlopt -lm 
 
+.PHONY: all
 all: mansaft.exe optimiser.exe
+
+.PHONY: run_optimiser
+run_optimiser: optimiser.exe 
+	./$< dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in 2>&1 | tee optimiser_output.txt
 
 mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 	${FC}  $^ -o $@ 
