@@ -41,34 +41,34 @@ GL.o: GL.f90 Types.o Global.o
 Setup.o: ${MP_DIR}/Setup.f90 Types.o Global.o
 	${FC} -c $<
 
-Z_eff.o: Z_eff.f90 Types.o Global.o
+Z_eff.o: ${MP_DIR}/Z_eff.f90 Types.o Global.o
 	${FC} -c $<
 
-Ideal.o: Ideal.f90 Types.o Global.o
+Ideal.o: ${MP_DIR}/Ideal.f90 Types.o Global.o
 	${FC} -c $<
 	
-Mono.o: Mono.f90 Types.o Global.o Z_eff.o
+Mono.o: ${MP_DIR}/Mono.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 	
-Chain.o: Chain.f90 Types.o Global.o Z_eff.o
+Chain.o: ${MP_DIR}/Chain.f90 Types.o Global.o Z_eff.o
 	${FC} -c $<
 
-Assoc.o: Assoc.f90 Types.o Global.o
+Assoc.o: ${MP_DIR}/Assoc.f90 Types.o Global.o
 	${FC} -c $<
 
-Ion.o: Ion.f90 Types.o Global.o
+Ion.o: ${MP_DIR}/Ion.f90 Types.o Global.o
 	${FC} -c $<
 
-Diff.o: Diff.f90 Types.o Global.o Setup.o
+Diff.o: ${MP_DIR}/Diff.f90 Types.o Global.o Setup.o
 	${FC} -c $<
 
 Zig.o: Zig.f90 Types.o
 	${FC} -c $<
 
-Pressure.o: Pressure.f90 Types.o Global.o Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
+Pressure.o: ${MP_DIR}/Pressure.f90 Types.o Global.o Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
-ChemPot.o: ChemPot.f90 Types.o Global.o Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
+ChemPot.o: ${MP_DIR}/ChemPot.f90 Types.o Global.o Setup.o Ideal.o Mono.o Chain.o Assoc.o Ion.o Diff.o
 	${FC} -c $<
 
 Vol.o: Vol.f90 Types.o Global.o Setup.o Pressure.o Ideal.o Mono.o Chain.o Assoc.o Ion.o ChemPot.o
