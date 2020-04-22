@@ -13,7 +13,7 @@ mansaft.exe: mansaft.f90 ${OBJECT_FILES}
 	${FC}  $^ -o $@ 
 
 optimiser.exe: optimiser.f90 ${OBJECT_FILES} Input_opt.o nlopt.o
-	${FC} ${NLOPT} $^ -o $@ 
+	${FC} $^ ${NLOPT} -o $@ 
 
 minpack.o: minpack.f ${MINPACK_DEPENDENCIES}
 	${FC} -c $<
