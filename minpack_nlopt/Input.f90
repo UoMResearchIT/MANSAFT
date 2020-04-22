@@ -24,7 +24,7 @@ contains
 !--------------------------------------------------------------------------        
 !Variables        
         !local do counters
-        integer         ::  i1,i2,i3,i4,ierr
+        integer         ::  i1,i2,i3,ierr
         integer         ::  j1,j2,j3,j4
         !input file
         character(len=80)               ::  filein
@@ -34,14 +34,12 @@ contains
         !temp values
         real(kind=DP)   ::  doub,doub2
         !gl input
-        integer                         ::  cfin        
-        character(len=80)               ::  path,path1        
 !--------------------------------------------------------------------------        
 !Read file        
         if(present(testinput)) then
             filein = testinput
         else  
-            call getarg(1,filein)        
+            call get_command_argument(1,filein)
         end if
    
         open(11, file=filein, status="old", action="read", iostat=ierr)
@@ -405,7 +403,7 @@ contains
                 if((properties%opt(3)=='y').or.(properties%opt(3)=='Y')) properties%opt_l(3)=.true. !Liq H
                 if((properties%opt(4)=='y').or.(properties%opt(4)=='Y')) properties%opt_l(4)=.true. !VLE Psat
                 if((properties%opt(5)=='y').or.(properties%opt(5)=='Y')) properties%opt_l(5)=.true. !VLE V
-				if((properties%opt(6)=='y').or.(properties%opt(6)=='Y')) properties%opt_l(6)=.true. !VLE binary  yichun
+		if((properties%opt(6)=='y').or.(properties%opt(6)=='Y')) properties%opt_l(6)=.true. !VLE binary  yichun
                        
                 read(11,*)
                 
@@ -494,8 +492,8 @@ contains
                     end do
                 end if
 				
-				!The followings are added by yichun
-				if(properties%opt_l(6)) then
+		!The followings are added by yichun
+		if(properties%opt_l(6)) then
                     read(11,*) properties%nmu
                     
                     allocate(properties%t_opt(1:properties%nmu), stat=ierr)               
