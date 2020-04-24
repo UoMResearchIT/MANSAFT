@@ -41,10 +41,10 @@ module Vol
         end if
         
         nroots = 0
-lv1 = 0
-lv2 = 0
-lp1 = 0
-lp2 = 0
+        lv1 = 0
+        lv2 = 0
+        lp1 = 0
+        lp2 = 0
         
         lr  = 0.0e0_DP
         i_rho = 1
