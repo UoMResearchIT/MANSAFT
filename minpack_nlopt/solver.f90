@@ -22,11 +22,11 @@ Module solver
                 ! Replaces C05QBF from NAG library
 
                 Use types, Only: DP
-                Use minpack, Only: dpmpar, enorm, hybrd1
+                Use minpack, Only: dpmpar, hybrd1
 
                 Implicit None
 
-                Real (Kind=DP)               :: fnorm, tol
+                Real (Kind=DP)               :: tol
                 Integer                      :: i, info, lwa
 
                 Real (Kind=DP), Allocatable  :: fvec(:), x(:)
