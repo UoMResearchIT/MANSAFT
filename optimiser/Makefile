@@ -1,6 +1,7 @@
 FC = gfortran
-INTERFACE_BLOCKS = /home/mbexegc2/NAG/fll6i26dfl/nag_interface_blocks
-NAG_LIBRARY = /home/mbexegc2/NAG/fll6i26dfl/lib/libnag_nag.a
+NAG_LIB_DIR = /home/mbexegc2/NAG/fll6i26dfl
+INTERFACE_BLOCKS = ${NAG_LIB_DIR}/nag_interface_blocks
+NAG_LIBRARY = ${NAG_LIB_DIR}/lib/libnag_nag.a
 EXE = optimiser.exe
 OBJECT_FILES = Types.o Global.o \
 	${TG_OBJS} ${Z_OBJS} Zig.o Input_opt.o Z_eff.o  \
