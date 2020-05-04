@@ -15,7 +15,7 @@ MP_DIR = ../minpack
 run: ${EXE}
 	./$< dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in | tee output.txt
 
-optimiser.exe: optimiser.f90 ${OBJECT_FILES}
+${EXE}: optimiser.f90 ${OBJECT_FILES}
 	${FC} -I${INTERFACE_BLOCKS} $^ ${NAG_LIBRARY} -o $@
 
 Types.o: Types.f90
