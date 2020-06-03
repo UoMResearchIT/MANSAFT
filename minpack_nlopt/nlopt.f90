@@ -56,7 +56,6 @@ Module nlopt
 		 end do
       end if
 	  
-	  call nlo_destroy(opt)
 102 Format ((2X,A10),(2X,F6.4))  
 	end subroutine opt_vle
 	
