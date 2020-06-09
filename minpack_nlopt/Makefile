@@ -10,7 +10,6 @@ NL_DIR = ${HOME}/Downloads/nlopt
 NLOPT = -I${NL_DIR}/include -L${NL_DIR}/lib -lnlopt -lm 
 MP_DIR = ../minpack
 OLD_OPT_DIR = ../optimiser
-NL_LIB_PATH = ${NL_DIR}/lib
 
 .PHONY: all
 all: mansaft.exe optimiser.exe
