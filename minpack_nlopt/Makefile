@@ -9,14 +9,9 @@ COMMON_DEPENDENCIES = Types.o Global.o Setup.o Ideal.o Mono.o Assoc.o Ion.o Diff
 NL_DIR = ${HOME}/Downloads/nlopt
 NLOPT = -I${NL_DIR}/include -L${NL_DIR}/lib -lnlopt -lm 
 MP_DIR = ../minpack
-OLD_OPT_DIR = ../optimiser
 
 .PHONY: all
 all: mansaft.exe optimiser.exe
-
-.PHONY: run_optimiser_old_example
-run_optimiser_old_example: optimiser.exe 
-	./$< ${OLD_OPT_DIR}/dmm_methanol_opt_assoc.in ${OLD_OPT_DIR}/opt_dmm_methanol_assoc.in 2>&1 | tee optimiser_output_old_example.txt
 
 .PHONY: run_optimiser_new_example
 run_optimiser_new_example: optimiser.exe 
