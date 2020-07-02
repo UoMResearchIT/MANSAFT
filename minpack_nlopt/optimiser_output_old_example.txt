@@ -1,0 +1,63 @@
+  
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ++                                                                             ++
+ ++                                                                             ++
+ ++            M     M    A    N   N   SSSS    A    FFFFF  TTTTT                ++
+ ++            MM   MM   A A   NN  N  SS      A A   F        T                  ++
+ ++            M M M M  A   A  N N N   SSS   A   A  FFF      T                  ++
+ ++            M  M  M  A A A  N  NN     SS  A A A  F        T                  ++
+ ++            M     M  A   A  N   N  SSSS   A   A  F        T                  ++
+ ++                                                                             ++
+ ++                                                                             ++
+ ++                              MANSAFT                                        ++
+ ++                     Manchester SAFT Gamma Mie                               ++
+ ++                                                                             ++
+ ++                                                                             ++
+ ++                      ****     *****     ********                            ++
+ ++                     ******    ******    ********                            ++
+ ++                    **    **   **  ***      **                               ++
+ ++                    **    **   **  ***      **                               ++
+ ++                    **    **   ******       **                               ++
+ ++                    **    **   ***          **                               ++
+ ++                     ******    ***          **                               ++
+ ++                      ****     ***          **                               ++
+ ++                                                                             ++
+ ++                VERSION 2.7 - The Ant on the Elephant                        ++
+ ++                                2018                                         ++
+ ++                                                                             ++
+ ++                                                                             ++
+ ++                       S.J. Halstead & A.J.Masters                           ++
+ ++                                                                             ++
+ ++         School of Chemical Engineering and Analytical Science               ++
+ ++                     The University of Manchester                            ++
+ ++                                                                             ++
+ ++               contact:  simon.halstead@manchester.ac.uk                     ++
+ ++                         simon.halstead@gmail.com                            ++
+ ++                                                                             ++
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+ optimiser
+ Reading file:
+     Test dmm pressure                                                               
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution
+
+ Approximate solution

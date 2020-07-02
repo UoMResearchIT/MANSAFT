@@ -1,0 +1,8 @@
+#!/bin/bash --login
+#$ -cwd 
+#$ -e ~/scratch/mansaft-opt.error
+#$ -o ~/scratch/mansaft-opt.out
+#$ -M address@manchester.ac.uk
+#$ -m bea
+export LD_LIBRARY_PATH=~/scratch/nlopt/lib64
+make run_optimiser_new_example
