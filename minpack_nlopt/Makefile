@@ -12,6 +12,10 @@ NLOPT = -I${NL_DIR}/include -L${NL_DIR}/lib -lnlopt -lm
 .PHONY: all
 all: mansaft.exe optimiser.exe
 
+.PHONY: run_mansaft_example
+run_mansaft_example: mansaft.exe 
+	./$< dmm_methanol.in
+
 .PHONY: run_optimiser_new_example
 run_optimiser_new_example: optimiser.exe 
 	./$< dmm_methanol_opt_assoc.in opt_dmm_methanol_assoc.in 2>&1 | tee optimiser_output_new_example.txt
